@@ -11,6 +11,7 @@ import type { IReqSignIn } from '../types/request/IReqSignIn.js';
 import type { IResSignIn } from '../types/response/IResSignIn.js';
 import type { IUser } from '../types/type/IAuthUser.js';
 import { ENV } from '../constants/env,.js';
+import { generateProfilePicture } from '../utils/utils.js';
 
 export class AuthController {
   async signIn(c: Context) {
@@ -57,6 +58,7 @@ export class AuthController {
     await db.insert(AccountEntity).values({
       email: body.email,
       password: hashPassword,
+      profilePicture: generateProfilePicture(body.name),
       name: body.name,
     });
     c.status(201);
