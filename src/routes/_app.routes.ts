@@ -1,8 +1,7 @@
-import {Router} from 'express';
-import {AuthRoutes} from "./auth.routes";
+import { Hono } from 'hono';
+import { AuthRoutes } from './auth.routes.js';
 
-const router = Router();
+const app = new Hono().basePath('/api');
+app.route('/auth', AuthRoutes);
 
-router.use('/auth', AuthRoutes);
-
-export const ApiRoutes = router;
+export default app;

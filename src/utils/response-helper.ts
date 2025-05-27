@@ -1,5 +1,4 @@
-import { Response } from 'express';
-import { BaseResponse } from '../types/response/base-response';
+import type { BaseResponse } from '../types/response/base-response.js';
 
 export class ResponseHelper {
   static success(message: string): BaseResponse<null> {
@@ -30,33 +29,7 @@ export class ResponseHelper {
     };
   }
 
-  static error(message: string): BaseResponse<null> {
+  static error(message: string, status: number): BaseResponse<null> {
     return { success: false, message };
-  }
-
-  static sendSuccess(res: Response, message: string, statusCode = 200): void {
-    res.status(statusCode).json(this.success(message));
-  }
-
-  static sendData<T>(res: Response, data: T, statusCode = 200): void {
-    res.status(statusCode).json(this.data(data));
-  }
-
-  static sendPaginated<T>(
-    res: Response,
-    data: T,
-    totalData: number,
-    page: number,
-    size: number,
-    statusCode = 200,
-    message: string = '',
-  ): void {
-    res
-      .status(statusCode)
-      .json(this.paginated(data, totalData, page, size, message));
-  }
-
-  static sendError(res: Response, message: string, statusCode = 400): void {
-    res.status(statusCode).json(this.error(message));
   }
 }

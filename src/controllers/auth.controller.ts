@@ -1,19 +1,20 @@
-import { NextFunction, Request, Response } from 'express';
-import { IReqSignUp } from '../types/request/IReqSignUp';
+import type { Context } from 'hono';
+import type { IReqSignUp } from '../types/request/IReqSignUp.js';
+import { AccountRepository } from '../repositories/account.repository.js';
+import { BadRequestException } from '../utils/exception.js';
 import bcrypt from 'bcryptjs';
-import { db } from '../db/database';
-import { AccountEntity } from '../entities/account.entity';
-import { AccountRepository } from '../repositories/account.repository';
-import { BadRequestException } from '../utils/exception';
-import { IReqSignIn } from '../types/request/IReqSignIn';
-import { IUser } from '../types/type/IAuthUser';
-import { ENV } from '../constants/env,';
+import { AccountEntity } from '../entities/account.entity.js';
+import { db } from '../db/database.js';
+import { ResponseHelper } from '../utils/response-helper.js';
 import jwt from 'jsonwebtoken';
-import { IResSignIn } from '../types/response/IResSignIn';
+import type { IReqSignIn } from '../types/request/IReqSignIn.js';
+import type { IResSignIn } from '../types/response/IResSignIn.js';
+import type { IUser } from '../types/type/IAuthUser.js';
+import { ENV } from '../constants/env,.js';
 
 export class AuthController {
-  async signIn(req: Request, res: Response, next: NextFunction) {
-    const body: IReqSignIn = req.body;
+  async signIn(c: Context) {
+    const body: IReqSignIn = await c.req.json();
     const findData = await AccountRepository.findByIdEmail(body.email);
 
     if (!findData) {
@@ -41,40 +42,28 @@ export class AuthController {
       access_token: token,
       user_data: verifyUser,
     };
-    res.data(response);
-    try {
-      res.data(req.body);
-    } catch (e) {
-      next(e);
-    }
+    return c.json(ResponseHelper.data(response));
   }
 
-  async signUp(req: Request, res: Response, next: NextFunction) {
-    const body: IReqSignUp = req.body;
+  async signUp(c: Context) {
+    const body = await c.req.json<IReqSignUp>();
     const findEmail = await AccountRepository.findByIdEmail(body.email);
     if (findEmail) {
       throw new BadRequestException('Email already exists');
     }
 
-    const hashPassword = await bcrypt.hash(req.body.password, 8);
+    const hashPassword = await bcrypt.hash(body.password, 8);
 
     await db.insert(AccountEntity).values({
       email: body.email,
       password: hashPassword,
       name: body.name,
     });
-    try {
-      res.success('OKE');
-    } catch (e) {
-      next(e);
-    }
+    c.status(201);
+    return c.json(ResponseHelper.success('Account success created'));
   }
 
-  async ping(_req: Request, res: Response, next: NextFunction) {
-    try {
-      res.json({ app: 'pong' });
-    } catch (error) {
-      next(error);
-    }
+  async ping(c: Context) {
+    return c.json({ app: 'pong' });
   }
 }
