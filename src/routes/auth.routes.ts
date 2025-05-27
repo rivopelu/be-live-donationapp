@@ -1,7 +1,8 @@
 import { Router } from 'express';
-import { AuthController } from '../controllers/auth.controller';
+import { Hono } from 'hono';
+import { AuthController } from '../controllers/auth.controller.js';
 
-const router = Router();
+const router = new Hono();
 const controller = new AuthController();
 router.get('/ping', controller.ping);
 router.post('/v1/sign-up', controller.signUp);

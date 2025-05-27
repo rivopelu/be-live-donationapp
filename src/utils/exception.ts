@@ -1,13 +1,16 @@
-import { HTTP_STATUS } from '../constants/http-status';
+import { HTTPException } from 'hono/http-exception';
+import { HTTP_STATUS } from '../constants/http-status.js';
 
 export class HttpError extends Error {
   constructor(
-    public status: number,
+    public status: any,
     message: string,
   ) {
     super(message);
     this.name = this.constructor.name;
     Error.captureStackTrace(this, this.constructor);
+
+    throw new HTTPException(status, { message: this.message });
   }
 }
 

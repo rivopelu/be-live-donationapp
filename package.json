@@ -1,12 +1,13 @@
 {
   "name": "be-donation-app",
+  "type": "module",
   "version": "1.0.0",
   "main": "index.js",
   "scripts": {
+    "dev": "tsx watch src/index.ts",
     "build": "tsc",
-    "start": "tsc && node --trace-warnings dist/api/index.js",
+    "start": "node dist/index.js",
     "start:prod": "./node_modules/.bin/env-cmd -f .env.prod tsc && node --trace-warnings dist/api/index.js",
-    "dev": "nodemon --watch 'src/**/*.ts' --exec ts-node api/index.ts",
     "lint": "eslint 'src/**/*.ts'",
     "db:generate": "npx drizzle-kit generate",
     "db:migrate": "npx drizzle-kit migrate",
@@ -30,8 +31,9 @@
     "nodemon": "^3.1.10",
     "prettier": "^3.5.3",
     "ts-node": "^10.9.2",
-    "tsx": "^4.19.4",
+    "tsx": "^4.7.1",
     "typescript": "^5.8.3"
+
   },
   "dependencies": {
     "@libsql/client": "^0.15.4",
@@ -48,6 +50,10 @@
     "mysql2": "^3.14.1",
     "node-telegram-bot-api": "^0.66.0",
     "uuid": "^11.1.0",
-    "winston": "^3.17.0"
+    "winston": "^3.17.0",
+    "@hono/node-server": "^1.14.3",
+    "hono": "^4.7.10"
   }
 }
+
+

@@ -1,57 +1,54 @@
-import { NextFunction, Request, Response } from 'express';
-import { logger } from '../utils/logger';
+import { type Context } from 'hono';
+import type { Next } from 'hono';
 
-const loggerMiddleware = (req: Request, res: Response, next: NextFunction) => {
+const loggerMiddleware = async (c: Context, next: Next) => {
   const start = Date.now();
+  await next();
 
-  res.on('finish', () => {
-    const duration = Date.now() - start;
+  const duration = Date.now() - start;
+  const req = c.req;
+  const res = c.res;
 
-    const dataLog = {
-      method: req.method,
-      protocol: req.protocol,
-      hostname: req.hostname,
-      original_url: req.originalUrl,
-      base_url: req.baseUrl,
-      path: req.path,
-      query: JSON.stringify(req.query),
-      body: JSON.stringify(req.body),
-      params: JSON.stringify(req.params),
-      headers: JSON.stringify(req.headers),
+  let dataLog: {
+    method: string;
+    url: string;
+    path: string;
+    query: Record<string, string>;
+    status_code: number;
+    duration: number;
+    user_agent: string | null;
+    origin: string | null;
+    referer: string | null;
+    ip_address: string | null;
+    has_auth_header: boolean;
+    authorization: string | null;
+  };
+  dataLog = {
+    method: req.method,
+    url: req.url,
+    path: req.path,
+    query: req.query(),
 
-      status_code: res.statusCode,
-      duration: duration,
-      content_length: String(res.getHeader('content-length') || '0'),
+    status_code: res.status,
+    duration: duration,
 
-      user_id: (req as any)?.user?.id || null,
-      user_email: (req as any)?.user?.email || null,
+    user_agent: req.header('user-agent') || null,
+    origin: req.header('origin') || null,
+    referer: req.header('referer') || null,
 
-      user_agent: req.headers['user-agent'] || null,
-      origin: req.headers['origin'] || null,
-      referer: req.headers['referer'] || null,
+    ip_address:
+      req.header('x-forwarded-for') ||
+      req.raw.headers.get('x-forwarded-for') ||
+      null,
 
-      ip_address: Array.isArray(req.headers['x-forwarded-for'])
-        ? req.headers['x-forwarded-for'][0]
-        : req.headers['x-forwarded-for'] || req.ip,
+    has_auth_header: !!req.header('authorization'),
+    authorization: req.header('authorization') || null,
+  };
 
-      forwarded_host: Array.isArray(req.headers['x-forwarded-host'])
-        ? req.headers['x-forwarded-host'][0]
-        : req.headers['x-forwarded-host'] || null,
-
-      forwarded_proto: Array.isArray(req.headers['x-forwarded-proto'])
-        ? req.headers['x-forwarded-proto'][0]
-        : req.headers['x-forwarded-proto'] || null,
-
-      has_auth_header: !!req.headers['authorization'],
-      authorization: req.headers['authorization'] || null,
-    };
-
-    logger.info(
-      `[${req.method}] ${req.originalUrl} - Status: ${res.statusCode} - ${duration}ms`,
-    );
-  });
-
-  next();
+  console.log(dataLog);
+  console.log(
+    `[${req.method}] ${req.url} - Status: ${res.status} - ${duration}ms`,
+  );
 };
 
 export default loggerMiddleware;

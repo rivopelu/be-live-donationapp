@@ -1,19 +1,8 @@
-import { NextFunction, Request, Response } from 'express';
+import type { HTTPException } from 'hono/http-exception';
+import type { Context } from 'hono';
+import { ResponseHelper } from './response-helper.js';
 
-export interface AppError extends Error {
-  status?: number;
+export function ErrorHandler(err: any, c: Context) {
+  c.status(err.status || 500);
+  return c.json(ResponseHelper.error(err.message, err.status || 500));
 }
-
-export const errorHandler = (
-  err: AppError,
-  _req: Request,
-  res: Response,
-  _next: NextFunction,
-) => {
-  console.error(err);
-  res.status(err.status || 500).json({
-    status: err.status || 500,
-    success: false,
-    message: err.message || 'Internal Server Error',
-  });
-};
