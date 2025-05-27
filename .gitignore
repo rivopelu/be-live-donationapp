@@ -1,0 +1,9 @@
+/node_modules
+/dist
+.env.prod
+.vercel
+
+.sentryclirc
+.env.prod
+.env.dev
+.env

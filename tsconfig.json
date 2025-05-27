@@ -1,0 +1,32 @@
+{
+  "compilerOptions": {
+    "target": "ES2017",
+    "module": "NodeNext",
+    "rootDir": ".",
+    "moduleResolution": "NodeNext",
+    "outDir": "./dist",
+    "strict": true,
+    "noImplicitOverride": false,
+    "esModuleInterop": true,
+    "skipLibCheck": true,
+    "forceConsistentCasingInFileNames": true,
+    "types": [
+      "node",
+      "./src/types/type/global.d.ts"
+    ],
+    "sourceMap": true,
+    "inlineSources": true,
+    // Set `sourceRoot` to  "/" to strip the build path prefix
+    // from generated source code references.
+    // This improves issue grouping in Sentry.
+    "sourceRoot": "/"
+  },
+  "include": [
+    "src/**/*",
+    "index.js",
+    "api"
+  ],
+  "exclude": [
+    "node_modules"
+  ]
+}
