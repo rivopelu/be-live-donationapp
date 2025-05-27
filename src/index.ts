@@ -1,12 +1,11 @@
 import { serve } from '@hono/node-server';
-import { type Context, Hono } from 'hono';
+import { Hono } from 'hono';
 import loggerMiddleware from './middleware/logger-middleware.js';
 import { ENV } from './constants/env,.js';
 import corsConfig from './configs/cors.config.js';
 import setupApiRoutes from './routes/_app.routes.js';
-import { HTTPException } from 'hono/http-exception';
-import { ResponseHelper } from './utils/response-helper.js';
 import { ErrorHandler } from './utils/error-handler.js';
+import { logger } from './utils/logger.js';
 
 const app = new Hono();
 
@@ -22,6 +21,6 @@ serve(
     port: Number(ENV.PORT),
   },
   (info) => {
-    console.log(`Server is running on http://localhost:${info.port}`);
+    logger.info(`Server is running on http://localhost:${info.port}`);
   },
 );
