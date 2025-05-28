@@ -1,17 +1,16 @@
-import { defineConfig } from 'drizzle-kit';
-import { Env } from './src/constants/env.ts';
+import { config } from 'dotenv';
 
-export default defineConfig({
-  dialect: 'mysql',
+config();
+
+export default {
   out: './src/db/migrations',
   schema: './src/entities',
+  dialect: 'mysql',
   dbCredentials: {
-    host: String(Env.DB_HOST),
-    user: String(Env.DB_USER),
-    database: String(Env.DB_NAME),
-    password: String(Env.DB_PASSWORD),
-    port: Number(Env.PORT),
+    host: process.env.DB_HOST!,
+    port: Number(process.env.DB_PORT || 3306),
+    user: process.env.DB_USER!,
+    password: process.env.DB_PASSWORD!,
+    database: process.env.DB_NAME!,
   },
-  verbose: true,
-  strict: true,
-});
+};
