@@ -4,7 +4,7 @@ import { Env } from '../constants/env';
 import jwt from 'jsonwebtoken';
 import type { IUser } from '../types/type/IAuthUser';
 
-const verifyToken = (c: Context, next: Next) => {
+const verifyToken = async (c: Context, next: Next) => {
   const authHeader = c.req.header()['authorization'];
   if (!authHeader || !authHeader.startsWith('Bearer ')) {
     throw new UnauthorizedException('No token provided or invalid format');
@@ -18,8 +18,8 @@ const verifyToken = (c: Context, next: Next) => {
     }
 
     c.set('user', decoded as IUser);
-    next().then();
   });
+  await next();
 };
 
 export default verifyToken;
