@@ -1,17 +1,17 @@
 import type { Context } from 'hono';
-import type { IReqSignUp } from '../types/request/IReqSignUp.ts';
-import { AccountRepository } from '../repositories/account.repository.ts';
-import { BadRequestException } from '../utils/exception.ts';
+import type { IReqSignUp } from '../types/request/IReqSignUp';
+import { AccountRepository } from '../repositories/account.repository';
+import { BadRequestException } from '../utils/exception';
 import bcrypt from 'bcryptjs';
-import { AccountEntity } from '../entities/account.entity.ts';
-import { db } from '../db/database.ts';
-import { ResponseHelper } from '../utils/response-helper.ts';
+import { AccountEntity } from '../entities/account.entity';
+import { db } from '../db/database';
+import { ResponseHelper } from '../utils/response-helper';
 import jwt from 'jsonwebtoken';
-import type { IReqSignIn } from '../types/request/IReqSignIn.ts';
-import type { IResSignIn } from '../types/response/IResSignIn.ts';
-import type { IUser } from '../types/type/IAuthUser.ts';
-import { Env } from '../constants/env.ts';
-import { generateProfilePicture } from '../utils/utils.ts';
+import type { IReqSignIn } from '../types/request/IReqSignIn';
+import type { IResSignIn } from '../types/response/IResSignIn';
+import type { IUser } from '../types/type/IAuthUser';
+import { Env } from '../constants/env';
+import { generateProfilePicture } from '../utils/utils';
 
 export class AuthController {
   async signIn(c: Context) {

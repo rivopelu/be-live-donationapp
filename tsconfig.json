@@ -1,19 +1,19 @@
 {
   "compilerOptions": {
-    "target": "ESNext",
-    "module": "Node16",
+    "target": "ES2022",
+    "module": "ESNext",
+    "moduleResolution": "node",
     "strict": true,
     "verbatimModuleSyntax": true,
-    "moduleResolution": "node16",
-    "noEmit": true,
-    "allowImportingTsExtensions": true,
+    "emitDeclarationOnly" : false,
     "skipLibCheck": true,
     "types": [
       "node"
     ],
     "jsx": "react-jsx",
     "jsxImportSource": "hono/jsx",
-    "outDir": "./dist"
+    "outDir": "./dist",
+    "allowSyntheticDefaultImports": true
   },
   "exclude": [
     "node_modules"

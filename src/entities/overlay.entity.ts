@@ -1,6 +1,6 @@
 import { mysqlTable, varchar } from 'drizzle-orm/mysql-core';
-import { baseEntity } from '../db/base-entity.ts';
-import { AccountEntity } from './account.entity.ts';
+import { baseEntity } from '../db/base-entity';
+import { AccountEntity } from './account.entity';
 
 export const OverlayEntity = mysqlTable('overlay', {
   ...baseEntity,

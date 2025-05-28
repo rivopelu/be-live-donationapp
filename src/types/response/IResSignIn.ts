@@ -1,4 +1,4 @@
-import type { IUser } from '../type/IAuthUser.ts';
+import type { IUser } from '../type/IAuthUser';
 
 export interface IResSignIn {
   access_token: string;

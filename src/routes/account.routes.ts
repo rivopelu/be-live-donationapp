@@ -1,6 +1,6 @@
 import { Hono } from 'hono';
-import { AccountController } from '../controllers/account.controller.ts';
-import verifyToken from '../middleware/verify-token.ts';
+import { AccountController } from '../controllers/account.controller';
+import verifyToken from '../middleware/verify-token';
 
 const router = new Hono();
 const controller = new AccountController();

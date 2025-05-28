@@ -1,8 +1,8 @@
 import type { Context, Next } from 'hono';
-import { UnauthorizedException } from '../utils/exception.ts';
-import { Env } from '../constants/env.ts';
+import { UnauthorizedException } from '../utils/exception';
+import { Env } from '../constants/env';
 import jwt from 'jsonwebtoken';
-import type { IUser } from '../types/type/IAuthUser.ts';
+import type { IUser } from '../types/type/IAuthUser';
 
 const verifyToken = (c: Context, next: Next) => {
   const authHeader = c.req.header()['authorization'];

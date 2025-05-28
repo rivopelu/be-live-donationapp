@@ -1,6 +1,6 @@
 import mysql from 'mysql2';
 import { drizzle } from 'drizzle-orm/mysql2';
-import { Env } from '../constants/env.ts';
+import { Env } from '../constants/env';
 
 const connection = mysql.createConnection({
   host: Env.DB_HOST!,

@@ -1,6 +1,6 @@
 import { Router } from 'express';
 import { Hono } from 'hono';
-import { AuthController } from '../controllers/auth.controller.ts';
+import { AuthController } from '../controllers/auth.controller';
 
 const router = new Hono();
 const controller = new AuthController();

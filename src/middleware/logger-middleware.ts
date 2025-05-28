@@ -1,6 +1,6 @@
 import { type Context } from 'hono';
 import type { Next } from 'hono';
-import { logger } from '../utils/logger.ts';
+import { logger } from '../utils/logger';
 
 const loggerMiddleware = async (c: Context, next: Next) => {
   const start = Date.now();

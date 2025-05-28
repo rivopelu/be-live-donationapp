@@ -1,11 +1,11 @@
 import { serve } from '@hono/node-server';
 import { Hono } from 'hono';
-import loggerMiddleware from './middleware/logger-middleware.ts';
-import { Env } from './constants/env.ts';
-import corsConfig from './configs/cors.config.ts';
-import setupApiRoutes from './routes/_app.routes.ts';
-import { ErrorHandler } from './utils/error-handler.ts';
-import { logger } from './utils/logger.ts';
+import loggerMiddleware from './middleware/logger-middleware';
+import { Env } from './constants/env';
+import corsConfig from './configs/cors.config';
+import setupApiRoutes from './routes/_app.routes';
+import { ErrorHandler } from './utils/error-handler';
+import { logger } from './utils/logger';
 
 const app = new Hono();
 
