@@ -1,0 +1,1 @@
+ALTER TABLE `overlay` ADD `text` varchar(255);
