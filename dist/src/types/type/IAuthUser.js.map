@@ -1,1 +1,0 @@
-{"version":3,"file":"IAuthUser.js","sourceRoot":"/","sources":["src/types/type/IAuthUser.ts"],"names":[],"mappings":"","sourcesContent":["export interface IUser {\r\n  email: string;\r\n  name: string;\r\n  id: string;\r\n  created_date: Date;\r\n  created_by: string;\r\n  profile_picture: string | null;\r\n}\r\n"]}

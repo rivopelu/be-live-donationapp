@@ -1,17 +1,17 @@
 import type { Context } from 'hono';
-import type { IReqSignUp } from '../types/request/IReqSignUp.js';
-import { AccountRepository } from '../repositories/account.repository.js';
-import { BadRequestException } from '../utils/exception.js';
+import type { IReqSignUp } from '../types/request/IReqSignUp.ts';
+import { AccountRepository } from '../repositories/account.repository.ts';
+import { BadRequestException } from '../utils/exception.ts';
 import bcrypt from 'bcryptjs';
-import { AccountEntity } from '../entities/account.entity.js';
-import { db } from '../db/database.js';
-import { ResponseHelper } from '../utils/response-helper.js';
+import { AccountEntity } from '../entities/account.entity.ts';
+import { db } from '../db/database.ts';
+import { ResponseHelper } from '../utils/response-helper.ts';
 import jwt from 'jsonwebtoken';
-import type { IReqSignIn } from '../types/request/IReqSignIn.js';
-import type { IResSignIn } from '../types/response/IResSignIn.js';
-import type { IUser } from '../types/type/IAuthUser.js';
-import { ENV } from '../constants/env,.js';
-import { generateProfilePicture } from '../utils/utils.js';
+import type { IReqSignIn } from '../types/request/IReqSignIn.ts';
+import type { IResSignIn } from '../types/response/IResSignIn.ts';
+import type { IUser } from '../types/type/IAuthUser.ts';
+import { Env } from '../constants/env.ts';
+import { generateProfilePicture } from '../utils/utils.ts';
 
 export class AuthController {
   async signIn(c: Context) {
@@ -38,7 +38,7 @@ export class AuthController {
       email: user.email,
       id: user.id,
     };
-    const token = jwt.sign(verifyUser, ENV.JWT_SECRET);
+    const token = jwt.sign(verifyUser, Env.JWT_SECRET);
     const response: IResSignIn = {
       access_token: token,
       user_data: verifyUser,

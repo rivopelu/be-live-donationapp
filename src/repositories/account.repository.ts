@@ -1,6 +1,6 @@
 import { eq } from 'drizzle-orm';
-import { AccountEntity } from '../entities/account.entity.js';
-import { db } from '../db/database.js';
+import { AccountEntity } from '../entities/account.entity.ts';
+import { db } from '../db/database.ts';
 
 export class AccountRepository {
   static async findByIdEmail(email: string) {

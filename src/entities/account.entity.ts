@@ -1,5 +1,5 @@
 import { mysqlTable, varchar } from 'drizzle-orm/mysql-core';
-import { baseEntity } from '../db/base-entity.js';
+import { baseEntity } from '../db/base-entity.ts';
 
 export const AccountEntity = mysqlTable('account', {
   ...baseEntity,

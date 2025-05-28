@@ -1,4 +1,4 @@
-import type { BaseResponse } from '../types/response/base-response.js';
+import type { BaseResponse } from '../types/response/base-response.ts';
 
 export class ResponseHelper {
   static success(message: string): BaseResponse<null> {

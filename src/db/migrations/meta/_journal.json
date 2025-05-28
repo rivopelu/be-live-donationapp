@@ -8,6 +8,13 @@
       "when": 1748365091840,
       "tag": "0000_cold_brother_voodoo",
       "breakpoints": true
+    },
+    {
+      "idx": 1,
+      "version": "5",
+      "when": 1748460031695,
+      "tag": "0001_fancy_thanos",
+      "breakpoints": true
     }
   ]
 }

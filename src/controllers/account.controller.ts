@@ -1,6 +1,6 @@
 import type { Context } from 'hono';
-import { ResponseHelper } from '../utils/response-helper.js';
-import type { IUser } from '../types/type/IAuthUser.js';
+import { ResponseHelper } from '../utils/response-helper.ts';
+import type { IUser } from '../types/type/IAuthUser.ts';
 
 export class AccountController {
   async me(c: Context) {

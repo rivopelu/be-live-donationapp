@@ -1,11 +1,11 @@
 import { serve } from '@hono/node-server';
 import { Hono } from 'hono';
-import loggerMiddleware from './middleware/logger-middleware.js';
-import { ENV } from './constants/env,.js';
-import corsConfig from './configs/cors.config.js';
-import setupApiRoutes from './routes/_app.routes.js';
-import { ErrorHandler } from './utils/error-handler.js';
-import { logger } from './utils/logger.js';
+import loggerMiddleware from './middleware/logger-middleware.ts';
+import { Env } from './constants/env.ts';
+import corsConfig from './configs/cors.config.ts';
+import setupApiRoutes from './routes/_app.routes.ts';
+import { ErrorHandler } from './utils/error-handler.ts';
+import { logger } from './utils/logger.ts';
 
 const app = new Hono();
 
@@ -18,7 +18,7 @@ app.onError(ErrorHandler);
 serve(
   {
     fetch: app.fetch,
-    port: Number(ENV.PORT),
+    port: Number(Env.PORT),
   },
   (info) => {
     logger.info(`Server is running on http://localhost:${info.port}`);

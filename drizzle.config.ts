@@ -1,16 +1,16 @@
 import { defineConfig } from 'drizzle-kit';
-import { ENV } from './src/constants/env,.js';
+import { Env } from './src/constants/env.ts';
 
 export default defineConfig({
   dialect: 'mysql',
   out: './src/db/migrations',
   schema: './src/entities',
   dbCredentials: {
-    host: ENV.DB_HOST as any,
-    user: ENV.DB_USER as any,
-    database: ENV.DB_NAME as any,
-    password: ENV.DB_PASSWORD as any,
-    port: ENV.DB_PORT,
+    host: String(Env.DB_HOST),
+    user: String(Env.DB_USER),
+    database: String(Env.DB_NAME),
+    password: String(Env.DB_PASSWORD),
+    port: Number(Env.PORT),
   },
   verbose: true,
   strict: true,

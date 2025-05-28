@@ -1,6 +1,6 @@
 import { Hono } from 'hono';
-import { AuthRoutes } from './auth.routes.js';
-import { AccountRoutes } from './account.routes.js';
+import { AuthRoutes } from './auth.routes.ts';
+import { AccountRoutes } from './account.routes.ts';
 
 const app = new Hono().basePath('/api');
 app.route('/auth', AuthRoutes);

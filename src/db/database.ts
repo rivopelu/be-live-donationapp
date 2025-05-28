@@ -1,13 +1,13 @@
 import mysql from 'mysql2';
 import { drizzle } from 'drizzle-orm/mysql2';
-import { ENV } from '../constants/env,.js';
+import { Env } from '../constants/env.ts';
 
 const connection = mysql.createConnection({
-  host: ENV.DB_HOST,
-  user: ENV.DB_USER,
-  password: ENV.DB_PASSWORD,
-  database: ENV.DB_NAME,
-  port: ENV.DB_PORT,
+  host: Env.DB_HOST,
+  user: Env.DB_USER,
+  password: Env.DB_PASSWORD,
+  database: Env.DB_NAME,
+  port: Env.DB_PORT,
 });
 
 export const db = drizzle(connection);

@@ -1,5 +1,5 @@
 import { HTTPException } from 'hono/http-exception';
-import { HTTP_STATUS } from '../constants/http-status.js';
+import { HTTP_STATUS } from '../constants/http-status.ts';
 
 export class HttpError extends Error {
   constructor(
