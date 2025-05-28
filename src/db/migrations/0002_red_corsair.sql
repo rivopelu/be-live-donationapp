@@ -1,0 +1,1 @@
+ALTER TABLE `overlay` MODIFY COLUMN `type` varchar(35);

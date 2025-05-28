@@ -4,7 +4,8 @@ import { AccountEntity } from './account.entity';
 
 export const OverlayEntity = mysqlTable('overlay', {
   ...baseEntity,
-  type: varchar('type', { length: 30 }),
+  type: varchar('type', { length: 35 }),
+
   account_id: varchar('account_id', { length: 255 }).references(
     () => AccountEntity.id,
   ),

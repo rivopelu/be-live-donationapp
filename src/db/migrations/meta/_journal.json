@@ -15,6 +15,13 @@
       "when": 1748460031695,
       "tag": "0001_fancy_thanos",
       "breakpoints": true
+    },
+    {
+      "idx": 2,
+      "version": "5",
+      "when": 1748462673852,
+      "tag": "0002_red_corsair",
+      "breakpoints": true
     }
   ]
 }
