@@ -5,9 +5,59 @@ import type { IReqCreateOverlay } from '../types/request/IReqCreateOverlay';
 import { db } from '../db/database';
 import { OverlayEntity } from '../entities/overlay.entity';
 import { OverlayRepository } from '../repositories/overlay.repository';
-import { BadRequestException } from '../utils/exception';
+import { BadRequestException, NotFoundException } from '../utils/exception';
+import type { IResListOverlay } from '../types/response/IResListOverlay';
+import type { IResDetailOverlay } from '../types/response/IResDetailOverlay';
 
 export class OverlayController {
+  async detailOverlay(c: Context) {
+    const userId = c.get('user')?.id;
+    const id = c.req.param()?.id;
+    const findData = await OverlayRepository.findByIdAndUser(id, userId);
+    if (!findData) {
+      throw new NotFoundException();
+    }
+    const data: IResDetailOverlay = {
+      id: findData.id,
+      type: findData.type as OverlayTypeEnum,
+      text: findData.text,
+      created_date: findData.createdDate,
+    };
+    return c.json(ResponseHelper.data(data));
+  }
+
+  async editOverlay(c: Context) {
+    const id = c.req.param()?.id;
+    const body = await c.req.json<IReqCreateOverlay>();
+    const userId = c.get('user').id;
+
+    const findUserOverlay = await OverlayRepository.findByIdAndUser(id, userId);
+    if (!findUserOverlay) {
+      throw new BadRequestException('Overlay not found');
+    }
+    await db.update(OverlayEntity).set({
+      text: body.text,
+      updatedBy: userId,
+      updatedDate: new Date(),
+    });
+    return c.json(ResponseHelper.success());
+  }
+
+  async getUserOverlayList(c: Context) {
+    const userId = c.get('user')?.id;
+    const data = await OverlayRepository.getAllUserOverlays(userId);
+    const dataRes: IResListOverlay[] = data.map((item) => {
+      return {
+        id: item.id,
+        type: item.type,
+        text: item.text,
+
+        created_date: item.createdDate,
+      };
+    }) as IResListOverlay[];
+    return c.json(ResponseHelper.data(dataRes));
+  }
+
   async getListTypeOverlay(c: Context) {
     const data = Object.values(OverlayTypeEnum);
     return c.json(ResponseHelper.data(data));

@@ -1,8 +1,8 @@
 import type { BaseResponse } from '../types/response/base-response';
 
 export class ResponseHelper {
-  static success(message: string): BaseResponse<null> {
-    return { success: true, message };
+  static success(message?: string): BaseResponse<null> {
+    return { success: true, message: message || 'oke' };
   }
 
   static data<T>(data: T, message: string = 'success'): BaseResponse<T> {
