@@ -1,8 +1,5 @@
-"use strict";
-Object.defineProperty(exports, "__esModule", { value: true });
-exports.ENV = void 0;
-require("dotenv/config");
-exports.ENV = {
+import 'dotenv/config';
+export const ENV = {
     PORT: process.env.PORT,
     NODE_ENV: process.env.NODE_ENV,
     DB_HOST: process.env.DB_HOST,
@@ -13,4 +10,3 @@ exports.ENV = {
     JWT_SECRET: String(process.env.JWT_SECRET),
     TELEGRAM_PERSONAL_ID: process.env.TELEGRAM_PERSONAL_ID,
 };
-//# sourceMappingURL=env,.js.map

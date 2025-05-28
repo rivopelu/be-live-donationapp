@@ -1,9 +1,7 @@
-"use strict";
-Object.defineProperty(exports, "__esModule", { value: true });
-exports.ApiRoutes = void 0;
-const express_1 = require("express");
-const auth_routes_1 = require("./auth.routes");
-const router = (0, express_1.Router)();
-router.use('/auth', auth_routes_1.AuthRoutes);
-exports.ApiRoutes = router;
-//# sourceMappingURL=_app.routes.js.map
+import { Hono } from 'hono';
+import { AuthRoutes } from './auth.routes.js';
+import { AccountRoutes } from './account.routes.js';
+const app = new Hono().basePath('/api');
+app.route('/auth', AuthRoutes);
+app.route('/account', AccountRoutes);
+export default app;

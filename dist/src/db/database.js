@@ -1,18 +1,11 @@
-"use strict";
-var __importDefault = (this && this.__importDefault) || function (mod) {
-    return (mod && mod.__esModule) ? mod : { "default": mod };
-};
-Object.defineProperty(exports, "__esModule", { value: true });
-exports.db = void 0;
-const mysql2_1 = __importDefault(require("mysql2"));
-const mysql2_2 = require("drizzle-orm/mysql2");
-const env_1 = require("../constants/env,");
-const connection = mysql2_1.default.createConnection({
-    host: env_1.ENV.DB_HOST,
-    user: env_1.ENV.DB_USER,
-    password: env_1.ENV.DB_PASSWORD,
-    database: env_1.ENV.DB_NAME,
-    port: env_1.ENV.DB_PORT,
+import mysql from 'mysql2';
+import { drizzle } from 'drizzle-orm/mysql2';
+import { ENV } from '../constants/env,.js';
+const connection = mysql.createConnection({
+    host: ENV.DB_HOST,
+    user: ENV.DB_USER,
+    password: ENV.DB_PASSWORD,
+    database: ENV.DB_NAME,
+    port: ENV.DB_PORT,
 });
-exports.db = (0, mysql2_2.drizzle)(connection);
-//# sourceMappingURL=database.js.map
+export const db = drizzle(connection);

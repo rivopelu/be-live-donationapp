@@ -1,20 +1,16 @@
-"use strict";
-Object.defineProperty(exports, "__esModule", { value: true });
-exports.baseEntity = void 0;
-const mysql_core_1 = require("drizzle-orm/mysql-core");
-const uuid_1 = require("uuid");
-exports.baseEntity = {
-    id: (0, mysql_core_1.varchar)({ length: 255 })
+import { boolean, timestamp, varchar } from 'drizzle-orm/mysql-core';
+import { v4 as uuidv4 } from 'uuid';
+export const baseEntity = {
+    id: varchar({ length: 255 })
         .primaryKey()
-        .$defaultFn(() => (0, uuid_1.v4)().split('-').join('').toUpperCase()),
-    active: (0, mysql_core_1.boolean)().default(true).notNull(),
-    createdDate: (0, mysql_core_1.timestamp)('created_date').notNull().defaultNow(),
-    createdBy: (0, mysql_core_1.varchar)('created_by', { length: 256 })
+        .$defaultFn(() => uuidv4().split('-').join('').toUpperCase()),
+    active: boolean().default(true).notNull(),
+    createdDate: timestamp('created_date').notNull().defaultNow(),
+    createdBy: varchar('created_by', { length: 256 })
         .notNull()
         .default('SYSTEM'),
-    updatedDate: (0, mysql_core_1.timestamp)('updated_date').notNull().defaultNow(),
-    updatedBy: (0, mysql_core_1.varchar)('updated_by', { length: 256 }),
-    deletedBy: (0, mysql_core_1.varchar)('deleted_by', { length: 256 }),
-    deletedDate: (0, mysql_core_1.timestamp)('deleted_date').defaultNow(),
+    updatedDate: timestamp('updated_date').notNull().defaultNow(),
+    updatedBy: varchar('updated_by', { length: 256 }),
+    deletedBy: varchar('deleted_by', { length: 256 }),
+    deletedDate: timestamp('deleted_date').defaultNow(),
 };
-//# sourceMappingURL=base-entity.js.map
