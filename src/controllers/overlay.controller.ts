@@ -22,6 +22,27 @@ export class OverlayController {
       type: findData.type as OverlayTypeEnum,
       text: findData.text,
       created_date: findData.createdDate,
+      background_color: findData?.background_color,
+      highlight_color: findData?.highlight_color,
+      text_color: findData?.text_color,
+    };
+    return c.json(ResponseHelper.data(data));
+  }
+
+  async detailPublicOverlay(c: Context) {
+    const id = c.req.param()?.id;
+    const findData = await OverlayRepository.findById(id);
+    if (!findData) {
+      throw new NotFoundException();
+    }
+    const data: IResDetailOverlay = {
+      id: findData.id,
+      type: findData.type as OverlayTypeEnum,
+      text: findData.text,
+      created_date: findData.createdDate,
+      background_color: findData?.background_color,
+      highlight_color: findData?.highlight_color,
+      text_color: findData?.text_color,
     };
     return c.json(ResponseHelper.data(data));
   }
@@ -39,6 +60,9 @@ export class OverlayController {
       text: body.text,
       updatedBy: userId,
       updatedDate: new Date(),
+      background_color: body.background_color,
+      highlight_color: body.highlight_color,
+      text_color: body.text_color,
     });
     return c.json(ResponseHelper.success());
   }
@@ -78,6 +102,9 @@ export class OverlayController {
       type: body.type,
       createdBy: userId,
       account_id: userId,
+      background_color: body.background_color,
+      highlight_color: body.highlight_color,
+      text_color: body.text_color,
     });
     return c.json(ResponseHelper.data(body));
   }

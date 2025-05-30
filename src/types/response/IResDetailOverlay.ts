@@ -5,4 +5,7 @@ export interface IResDetailOverlay {
   created_date: Date;
   text?: string | null;
   type?: OverlayTypeEnum | null;
+  background_color?: string | null;
+  text_color?: string | null;
+  highlight_color?: string | null;
 }
