@@ -48,15 +48,22 @@ export class AuthController {
 
   async signUp(c: Context) {
     const body = await c.req.json<IReqSignUp>();
+
     const findEmail = await AccountRepository.findByIdEmail(body.email);
     if (findEmail) {
       throw new BadRequestException('Email already exists');
+    }
+
+    const findUsername = await AccountRepository.findByUsername(body.username);
+    if (findUsername) {
+      throw new BadRequestException('username already exists');
     }
 
     const hashPassword = await bcrypt.hash(body.password, 8);
 
     await db.insert(AccountEntity).values({
       email: body.email,
+      username: body.username,
       password: hashPassword,
       profilePicture: generateProfilePicture(body.name),
       name: body.name,
