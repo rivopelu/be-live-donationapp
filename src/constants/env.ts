@@ -10,4 +10,6 @@ export const Env = {
   DB_PASSWORD: process.env.DB_PASSWORD,
   JWT_SECRET: String(process.env.JWT_SECRET),
   TELEGRAM_PERSONAL_ID: process.env.TELEGRAM_PERSONAL_ID,
+  MIDTRANS_CLIENT_KEY: process.env.MIDTRANS_CLIENT_KEY,
+  MIDTRANS_SERVER_KEY: process.env.MIDTRANS_SERVER_KEY,
 };
