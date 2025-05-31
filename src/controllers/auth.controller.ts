@@ -12,6 +12,7 @@ import type { IResSignIn } from '../types/response/IResSignIn';
 import type { IUser } from '../types/type/IAuthUser';
 import { Env } from '../constants/env';
 import { generateProfilePicture } from '../utils/utils';
+import { wsManager } from '../configs/ws.config';
 
 export class AuthController {
   async signIn(c: Context) {
@@ -73,6 +74,7 @@ export class AuthController {
   }
 
   async ping(c: Context) {
-    return c.json({ app: 'pong' });
+    wsManager.broadcast('hello 123 123 123 123 123 123 123s');
+    return c.json({ app: 'pong', sentTo: wsManager.size });
   }
 }
