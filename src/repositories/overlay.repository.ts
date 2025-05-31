@@ -1,6 +1,7 @@
 import { db } from '../db/database';
 import { OverlayEntity } from '../entities/overlay.entity';
 import { and, eq } from 'drizzle-orm';
+import type { OverlayTypeEnum } from '../enums/overlay-type-enum';
 
 export class OverlayRepository {
   static async findById(id: string) {
@@ -8,6 +9,20 @@ export class OverlayRepository {
       .select()
       .from(OverlayEntity)
       .where(and(eq(OverlayEntity.id, id), eq(OverlayEntity.active, true)));
+    return data[0];
+  }
+
+  static async findByUserIdAndType(id: string, type: OverlayTypeEnum) {
+    const data = await db
+      .select()
+      .from(OverlayEntity)
+      .where(
+        and(
+          eq(OverlayEntity.id, id),
+          eq(OverlayEntity.type, type),
+          eq(OverlayEntity.active, true),
+        ),
+      );
     return data[0];
   }
   static async findByIdAndUser(id: string, user: string) {
