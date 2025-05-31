@@ -1,2 +1,0 @@
-ALTER TABLE `account` ADD `username` varchar(256) DEFAULT '4C5CAE7F512846ECBAB179D83032B5FC' NOT NULL;--> statement-breakpoint
-ALTER TABLE `account` ADD CONSTRAINT `account_username_unique` UNIQUE(`username`);
