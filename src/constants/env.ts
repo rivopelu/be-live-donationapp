@@ -12,5 +12,5 @@ export const Env = {
   TELEGRAM_PERSONAL_ID: process.env.TELEGRAM_PERSONAL_ID,
   MIDTRANS_CLIENT_KEY: process.env.MIDTRANS_CLIENT_KEY,
   MIDTRANS_SERVER_KEY: process.env.MIDTRANS_SERVER_KEY,
-  MIDTRANS_BASE_URL: 'https://api.sandbox.midtrans.com/v2/charge',
+  MIDTRANS_BASE_URL: process.env.MIDTRANS_BASE_URL,
 };
