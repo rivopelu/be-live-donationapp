@@ -74,6 +74,6 @@ export class AuthController {
   }
   async ping(c: Context) {
     wsManager.broadcastToTopic('Test', 'test');
-    return c.json({ app: 'pong', sentTo: wsManager.size });
+    return c.json({ app: 'pong test', sentTo: wsManager.size });
   }
 }
