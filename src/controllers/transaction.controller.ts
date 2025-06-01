@@ -54,12 +54,16 @@ export class TransactionController {
       body.payment_type,
     );
 
-    return c.json(
-      ResponseHelper.data({
-        gifter_id: gifter,
-        transaction_id: transactionId,
-        payment: payment,
-      }),
-    );
+    const vaNumber = payment.va_numbers[0].va_number;
+    const responseData = ResponseHelper.data({
+      gifter_id: gifter,
+      transaction_id: transactionId,
+      payment_type: body.payment_type,
+      virtual_account: vaNumber,
+      transaction_time: payment.transaction_time,
+      transaction_status: payment.transaction_status,
+    });
+
+    return c.json(responseData);
   }
 }

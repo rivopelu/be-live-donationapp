@@ -2,6 +2,7 @@ import { Env } from '../constants/env';
 import { HttpService } from './http.service';
 import { PAYMENT_TYPE_ENUM } from '../enums/payment-type-enum';
 import { parsePaymentBankTransfer } from '../utils/parse-payment-type';
+import type { IResMidtransBankTransfer } from '../types/response/IResMidtransBankTransfer';
 
 export class PaymentService {
   private httpService: HttpService;
@@ -36,6 +37,6 @@ export class PaymentService {
       },
     };
     const res = await this.httpService.POST('', reqData);
-    return res.data;
+    return res.data as IResMidtransBankTransfer;
   }
 }
