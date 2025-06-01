@@ -8,6 +8,7 @@ import { OverlayRepository } from '../repositories/overlay.repository';
 import { db } from '../db/database';
 import { TransactionEntity } from '../entities/transaction.entity';
 import { TRANSACTION_STATUS_ENUM } from '../enums/transaction-status-enum';
+import { PaymentService } from '../services/payment.service';
 
 export class TransactionController {
   async createDonation(c: Context) {
@@ -32,7 +33,7 @@ export class TransactionController {
       body.from,
     );
 
-    const transactionId = await db
+    const returningTransactionId = await db
       .insert(TransactionEntity)
       .values({
         message: body.message,
@@ -45,11 +46,19 @@ export class TransactionController {
         gifter_id: gifter,
       })
       .$returningId();
+    const paymentService = new PaymentService();
+    const transactionId = returningTransactionId[0].id;
+    const payment = await paymentService.createPaymentBankTransfer(
+      transactionId,
+      body.amount,
+      body.payment_type,
+    );
 
     return c.json(
       ResponseHelper.data({
         gifter_id: gifter,
-        transaction_id: transactionId[0].id,
+        transaction_id: transactionId,
+        payment: payment,
       }),
     );
   }
