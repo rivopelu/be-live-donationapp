@@ -62,6 +62,7 @@ export class TransactionController {
       virtual_account: vaNumber,
       transaction_time: payment.transaction_time,
       transaction_status: payment.transaction_status,
+      amount: body.amount,
     });
 
     return c.json(responseData);
