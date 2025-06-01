@@ -35,7 +35,7 @@ jobs:
           port: 22
           script: |
                 echo "==> DEPLOYING ON SERVER"
-                cd donation-app
+                cd ~/donation-app
                 git checkout development
                 git pull origin development
                 echo "==> CODE PULLED"
