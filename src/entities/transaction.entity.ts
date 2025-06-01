@@ -8,7 +8,7 @@ import { OverlayEntity } from './overlay.entity';
 
 export const TransactionEntity = mysqlTable('transaction', {
   ...baseEntity,
-  message: varchar({ length: 256 }).notNull().unique(),
+  message: varchar({ length: 256 }).notNull(),
   amount: bigint({ mode: 'number' }).notNull(),
   type: varchar({
     length: 256,
@@ -17,9 +17,7 @@ export const TransactionEntity = mysqlTable('transaction', {
       OverlayTypeEnum.QR_CODE,
       OverlayTypeEnum.MILESTONE,
     ],
-  })
-    .notNull()
-    .unique(),
+  }).notNull(),
   status: varchar({
     length: 255,
     enum: [
@@ -30,11 +28,15 @@ export const TransactionEntity = mysqlTable('transaction', {
       TRANSACTION_STATUS_ENUM.CANCELED,
     ],
   }),
+  payment_type: varchar('payment_type', { length: 255 }).notNull(),
   account_id: varchar('account_id', { length: 255 }).references(
     () => AccountEntity.id,
   ),
 
-  overlay_entity: varchar('overlay_entity', { length: 255 }).references(
+  overlay_id: varchar('overlay_entity', { length: 255 }).references(
     () => OverlayEntity.id,
+  ),
+  gifter_id: varchar('gifter_id', { length: 40 }).references(
+    () => GiftTerEntity.id,
   ),
 });

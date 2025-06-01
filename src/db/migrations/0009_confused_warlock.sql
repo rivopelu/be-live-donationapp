@@ -1,0 +1,1 @@
+ALTER TABLE `transaction` DROP INDEX `transaction_type_unique`;

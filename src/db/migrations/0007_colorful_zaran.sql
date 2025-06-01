@@ -1,0 +1,1 @@
+ALTER TABLE `transaction` ADD `payment_type` varchar(255) NOT NULL;

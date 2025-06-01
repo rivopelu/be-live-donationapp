@@ -18,7 +18,7 @@ export class OverlayRepository {
       .from(OverlayEntity)
       .where(
         and(
-          eq(OverlayEntity.id, id),
+          eq(OverlayEntity.account_id, id),
           eq(OverlayEntity.type, type),
           eq(OverlayEntity.active, true),
         ),
