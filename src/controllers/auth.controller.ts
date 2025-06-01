@@ -72,9 +72,8 @@ export class AuthController {
     c.status(201);
     return c.json(ResponseHelper.success('Account success created'));
   }
-
   async ping(c: Context) {
-    wsManager.broadcast('hello 123 123 123 123 123 123 123s');
+    wsManager.broadcastToTopic('Test', 'test');
     return c.json({ app: 'pong', sentTo: wsManager.size });
   }
 }

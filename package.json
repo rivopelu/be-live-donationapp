@@ -6,7 +6,7 @@
   "scripts": {
     "dev": "tsx watch src/index.ts",
     "build": "tsup",
-    "start": "node dist/index.cjs",
+    "start": "tsup && node dist/index.cjs",
     "start:prod": "./node_modules/.bin/env-cmd -f .env.prod tsc && node --trace-warnings dist/api/index.js",
     "lint": "eslint 'src/**/*.ts'",
     "db:generate": "npx drizzle-kit generate",

@@ -1,22 +1,29 @@
 import type { WSContext } from 'hono/dist/types/helper/websocket';
 
+type WsWithTopic = {
+  ws: WSContext;
+  topic: string;
+};
 export class WebSocketManager {
-  private sockets: Set<WSContext> = new Set();
+  private sockets: Set<WsWithTopic> = new Set();
 
-  addSocket(socket: any) {
+  addSocket(socket: WsWithTopic) {
     console.log(socket);
-    this.sockets.add(socket);
+    this.sockets.add({
+      topic: socket.topic,
+      ws: socket.ws,
+    });
   }
 
-  removeSocket(socket: WSContext) {
+  removeSocket(socket: WsWithTopic) {
     this.sockets.delete(socket);
   }
 
-  broadcast(message: string) {
-    console.log(this.sockets, 'this socket');
-    for (const socket of this.sockets) {
-      console.log(socket);
-      socket.send(message);
+  broadcastToTopic(message: string, topic: string) {
+    for (const client of this.sockets) {
+      if (client.topic === topic) {
+        client.ws.send(message);
+      }
     }
   }
 
@@ -24,7 +31,7 @@ export class WebSocketManager {
     return this.sockets.size;
   }
 
-  getSockets(): Set<WSContext> {
+  getSockets(): Set<WsWithTopic> {
     return this.sockets;
   }
 }

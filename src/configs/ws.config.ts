@@ -5,11 +5,16 @@ export const wsManager = new WebSocketManager();
 
 export function setupWs(app: Hono, upgradeWebSocket: UpgradeWebSocket) {
   app.get(
-    '/ws',
+    '/ws/:id',
     upgradeWebSocket((c) => {
       return {
         onOpen(_, server) {
-          wsManager.addSocket(server);
+          const topic = c.req.param('id');
+
+          wsManager.addSocket({
+            ws: server,
+            topic: topic,
+          });
         },
         onMessage(event, ws) {
           console.log(`Message from client: ${event.data}`);
