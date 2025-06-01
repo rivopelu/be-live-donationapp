@@ -6,6 +6,7 @@ import { BadRequestException } from '../utils/exception';
 import { db } from '../db/database';
 import { TransactionEntity } from '../entities/transaction.entity';
 import { TRANSACTION_STATUS_ENUM } from '../enums/transaction-status-enum';
+import { eq } from 'drizzle-orm';
 
 export class WebhookController {
   async midtransNotificationAfterPayment(c: Context) {
@@ -16,10 +17,13 @@ export class WebhookController {
     }
 
     if (body.transaction_status === 'settlement') {
-      await db.update(TransactionEntity).set({
-        status: TRANSACTION_STATUS_ENUM.SETTLEMENT,
-        updatedDate: new Date(),
-      });
+      await db
+        .update(TransactionEntity)
+        .set({
+          status: TRANSACTION_STATUS_ENUM.SETTLEMENT,
+          updatedDate: new Date(),
+        })
+        .where(eq(TransactionEntity.id, order.id));
     }
 
     return c.json(ResponseHelper.success('Oke'));
