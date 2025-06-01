@@ -5,7 +5,7 @@ export const wsManager = new WebSocketManager();
 
 export function setupWs(app: Hono, upgradeWebSocket: UpgradeWebSocket) {
   app.get(
-    '/ws/:id',
+    '/api/ws/:id',
     upgradeWebSocket((c) => {
       return {
         onOpen(_, server) {

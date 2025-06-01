@@ -1,0 +1,50 @@
+name: DEPLOY STAGING
+
+on:
+  push:
+    branches: [ "development" ]
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    steps:
+      -   uses: actions/checkout@v3
+      -   name: Set up JDK 21
+          uses: actions/setup-java@v3
+          with:
+            java-version: '21'
+            distribution: 'temurin'
+            cache: maven
+      -   name: Build with Maven
+          run: ./mvnw package -DskipTests=true -Dspring-boot.run.profiles=server
+
+  deploy-server-1:
+    needs: build
+    runs-on: ubuntu-latest
+    steps:
+      -   name: RUNNING DEPLOY SERVER 1
+          uses: appleboy/ssh-action@master
+          with:
+            host: ${{ secrets.HOST }}
+            username: ${{ secrets.USERNAME }}
+            key: ${{ secrets.PRIVATE_KEY }}
+            port: 22
+            script: |
+              ls
+              pm2 list
+              pm2 stop donation
+              echo ================= SERVER 1 STOP APPLICATION SUCCESS =================
+              cd donation-app
+              ls
+              git checkout development
+              git pull origin development
+              echo ================= SERVER 1 PULL SUCCESS =================
+              npm install
+              echo INSTALL SUCCESS
+              echo ================= SERVER 1 INSTALL SUCCESS =================
+              npm run build
+              echo ================= SERVER 1 SUCCESS BUILD =================
+              pm2 restart donation
+              echo ================= START SUCCESS =================
+              echo ================= SERVER 1 DEPLOYING SUCCESS SERVER 1 =================
+
