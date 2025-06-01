@@ -53,5 +53,5 @@ jobs:
             echo "==> BUILD SUCCESSFUL"
 
             pm2 stop donation || echo "PM2 process not found"
-            pm2 start dist/index.js --name donation
+            pm2 start donation
             echo "==> APP STARTED WITH PM2"
